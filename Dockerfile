@@ -13,4 +13,7 @@ RUN apk --update add openssh openssl && \
 COPY trusted_keys /root/.ssh/authorized_keys
 COPY containerpilot.json /usr/local/etc/containerpilot.json
 
+ARG VERSION
+ENV VERSION $VERSION
+
 CMD ["containerpilot", "-config", "file:///usr/local/etc/containerpilot.json",  "/usr/sbin/sshd", "-D"]
