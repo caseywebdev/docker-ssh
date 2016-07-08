@@ -3,12 +3,13 @@ FROM debian:8.5
 ENV CONTAINERPILOT_VERSION 2.3.0
 RUN apt-get update && \
     apt-get install -y openssh-server wget && \
+    mkdir /var/run/sshd && \
     echo PasswordAuthentication no >> /etc/ssh/sshd_config && \
     wget -O - \
       https://github.com/joyent/containerpilot/releases/download/$CONTAINERPILOT_VERSION/containerpilot-$CONTAINERPILOT_VERSION.tar.gz | \
       tar xz -C /usr/local/bin/
 
-COPY trusted_keys /root/.ssh/authorized_keys
+COPY authorized_keys /root/.ssh/authorized_keys
 COPY containerpilot.json /usr/local/etc/containerpilot.json
 
 EXPOSE 22
