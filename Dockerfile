@@ -1,10 +1,8 @@
-FROM alpine:3.4
-
-EXPOSE 22
+FROM debian:8.5
 
 ENV CONTAINERPILOT_VERSION 2.3.0
-RUN apk --update add openssh openssl && \
-    ssh-keygen -A && \
+RUN apt-get update && \
+    apt-get install openssh-server && \
     echo PasswordAuthentication no >> /etc/ssh/sshd_config && \
     wget -O - \
       https://github.com/joyent/containerpilot/releases/download/$CONTAINERPILOT_VERSION/containerpilot-$CONTAINERPILOT_VERSION.tar.gz | \
@@ -12,6 +10,8 @@ RUN apk --update add openssh openssl && \
 
 COPY trusted_keys /root/.ssh/authorized_keys
 COPY containerpilot.json /usr/local/etc/containerpilot.json
+
+EXPOSE 22
 
 ARG VERSION
 ENV VERSION $VERSION
