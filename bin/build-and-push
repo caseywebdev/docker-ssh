@@ -1,8 +1,7 @@
 #!/usr/bin/env bash -e
 
-curl -sSL \
-  https://github.com/caseywebdev/docker-build-and-push/raw/master/run.sh | \
+curl -sSL build.sey.me | \
   REF=master \
   GITHUB_REPO=caseywebdev/docker-ssh \
-  IMAGE_REPO=quay.io/caseywebdev/docker-ssh \
+  IMAGE_REPO=quay.io/caseywebdev/ssh \
   bash
